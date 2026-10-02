@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Larkspur Kitchen · Order direct</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#0b3c49;--teal2:#14586a;--butter:#ffd23f;--tomato:#e8452c;--paper:#fffdf7;--ink:#10252c;--line:#d9e2e4;--muted:#55696f;
+--head:"Bricolage Grotesque","Trebuchet MS",sans-serif;--body:"DM Sans",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.5}
+:focus-visible{outline:3px solid var(--tomato);outline-offset:2px}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+header{background:var(--teal);color:#fff}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:16px 0}
+.brand{font-family:var(--head);font-weight:800;font-size:1.3rem}
+.bar span{font-size:.9rem;opacity:.85}
+.hero{padding:40px 0 56px}
+.hero h1{font-family:var(--head);font-weight:800;font-size:clamp(2.4rem,7vw,4.6rem);line-height:1;max-width:14ch}
+.hero p{margin:18px 0 26px;max-width:46ch;font-size:1.1rem;color:#d4e6ea}
+.cta{display:inline-block;background:var(--butter);color:var(--ink);font-weight:700;padding:14px 26px;border-radius:999px;text-decoration:none;border:0}
+.cta:hover{background:#ffe27a}
+.facts{display:flex;gap:24px;flex-wrap:wrap;margin-top:28px;font-size:.95rem;color:#d4e6ea}
+.facts b{color:var(--butter)}
+main{padding:40px 0 80px;display:grid;grid-template-columns:1fr 340px;gap:36px;align-items:start}
+h2{font-family:var(--head);font-size:1.8rem;margin-bottom:14px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.tab{border:2px solid var(--teal);background:none;color:var(--teal);padding:8px 16px;border-radius:999px;font-weight:500}
+.tab[aria-pressed=true]{background:var(--teal);color:#fff}
+.items{display:grid;gap:14px}
+.item{display:grid;grid-template-columns:72px 1fr auto;gap:16px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.dot{width:72px;height:72px;border-radius:14px;display:grid;place-items:center;font-family:var(--head);font-weight:800;font-size:1.6rem;color:#fff}
+.item h3{font-size:1.05rem}
+.item p{font-size:.9rem;color:var(--muted)}
+.price{font-weight:700;margin-top:2px}
+.add{background:var(--teal);color:#fff;border:0;border-radius:10px;padding:10px 16px;font-weight:700}
+.add:hover{background:var(--teal2)}
+aside{position:sticky;top:16px;background:#fff;border:2px solid var(--teal);border-radius:16px;padding:20px}
+.mode{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:12px 0}
+.mode button{padding:9px;border:1px solid var(--line);background:#fff;border-radius:10px}
+.mode button[aria-pressed=true]{background:var(--butter);border-color:var(--butter);font-weight:700}
+.line{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--teal);background:#fff;font-weight:700}
+.empty{color:var(--muted);padding:14px 0}
+.sum{margin-top:12px;font-size:.95rem}
+.sum div{display:flex;justify-content:space-between;padding:2px 0}
+.sum .total{font-weight:700;font-size:1.15rem;border-top:2px solid var(--ink);margin-top:6px;padding-top:8px}
+.order{width:100%;margin-top:14px;background:var(--tomato);color:#fff;border:0;border-radius:12px;padding:14px;font-weight:700;font-size:1rem}
+.order:disabled{background:#c9b4af;cursor:not-allowed}
+.done{background:#e6f4ea;border-radius:10px;padding:12px;margin-top:12px;font-size:.95rem}
+footer{background:var(--teal);color:#d4e6ea;padding:26px 0;font-size:.9rem}
+.mini{display:none}
+@media(max-width:820px){
+main{grid-template-columns:1fr}
+aside{position:static}
+.mini{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--tomato);color:#fff;justify-content:space-between;padding:14px 20px;font-weight:700;text-decoration:none;z-index:5}
+body{padding-bottom:52px}
+.item{grid-template-columns:56px 1fr}
+.dot{width:56px;height:56px}
+.add{grid-column:1/-1}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="bar"><div class="brand">Larkspur Kitchen</div><span>Open daily, 8am to 9pm</span></div>
+    <section class="hero">
+      <h1>Order direct from us. Pay no app fees.</h1>
+      <p>Fresh sandwiches, bowls and coffee, ready for pickup in 15 minutes or delivered within 3 miles.</p>
+      <a class="cta" href="#menu">Start your order</a>
+      <div class="facts"><span><b>15 min</b> average pickup</span><span><b>$0</b> service fees</span><span><b>3 mi</b> delivery radius</span></div>
+    </section>
+  </div>
+</header>
+
+<div class="wrap">
+<main>
+  <section id="menu" aria-labelledby="mt">
+    <h2 id="mt">Menu</h2>
+    <div class="tabs" id="tabs" role="group" aria-label="Menu categories"></div>
+    <div class="items" id="items"></div>
+  </section>
+
+  <aside id="cart" aria-labelledby="ct">
+    <h2 id="ct">Your order</h2>
+    <div class="mode" id="mode" role="group" aria-label="Order type">
+      <button data-m="pickup" aria-pressed="true">Pickup</button>
+      <button data-m="delivery" aria-pressed="false">Delivery</button>
+    </div>
+    <div id="lines" aria-live="polite"></div>
+    <div class="sum" id="sum"></div>
+    <button class="order" id="place" disabled>Place order</button>
+    <div id="msg"></div>
+  </aside>
+</main>
+</div>
+
+<a class="mini" href="#cart" id="mini" aria-label="Go to your order"><span id="mcount">0 items</span><span id="mtotal">$0.00</span></a>
+
+<footer><div class="wrap">Larkspur Kitchen is a fictional restaurant created as a portfolio project. Orders are not real.</div></footer>
+
+<script>
+const MENU=[
+{id:1,cat:"Sandwiches",name:"Smoked Turkey Club",desc:"Turkey, bacon, tomato, herb mayo, toasted sourdough.",price:12.5,color:"#e8452c"},
+{id:2,cat:"Sandwiches",name:"Roasted Veggie Melt",desc:"Zucchini, peppers, provolone, pesto, ciabatta.",price:11,color:"#2f7d4f"},
+{id:3,cat:"Sandwiches",name:"Crispy Chicken",desc:"Buttermilk chicken, slaw, pickles, brioche.",price:13,color:"#c77d0a"},
+{id:4,cat:"Bowls",name:"Harvest Grain Bowl",desc:"Farro, roasted squash, kale, feta, lemon dressing.",price:13.5,color:"#14586a"},
+{id:5,cat:"Bowls",name:"Chipotle Rice Bowl",desc:"Black beans, corn, avocado, lime crema.",price:12,color:"#7a3b8f"},
+{id:6,cat:"Drinks",name:"Cold Brew",desc:"Steeped 18 hours, served over ice.",price:4.5,color:"#5b3a29"},
+{id:7,cat:"Drinks",name:"Fresh Lemonade",desc:"Squeezed daily, lightly sweet.",price:4,color:"#b89a00"},
+{id:8,cat:"Drinks",name:"Oat Milk Latte",desc:"Double espresso, steamed oat milk.",price:5.25,color:"#3d6b73"}
+];
+const TAX=0.08,DELIVERY=3.99;
+let cat="All",mode="pickup",cart={};
+const $=s=>document.querySelector(s);
+const money=n=>"$"+n.toFixed(2);
+
+function renderTabs(){
+  const cats=["All",...new Set(MENU.map(m=>m.cat))];
+  $("#tabs").innerHTML=cats.map(c=>`<button class="tab" data-c="${c}" aria-pressed="${c===cat}">${c}</button>`).join("");
+}
+function renderItems(){
+  $("#items").innerHTML=MENU.filter(m=>cat==="All"||m.cat===cat).map(m=>`
+  <article class="item">
+    <div class="dot" style="background:${m.color}" aria-hidden="true">${m.name[0]}</div>
+    <div><h3>${m.name}</h3><p>${m.desc}</p><div class="price">${money(m.price)}</div></div>
+    <button class="add" data-id="${m.id}" aria-label="Add ${m.name} to order">Add</button>
+  </article>`).join("");
+}
+function renderCart(){
+  const ids=Object.keys(cart);
+  $("#lines").innerHTML=ids.length?ids.map(id=>{
+    const m=MENU.find(x=>x.id==id),q=cart[id];
+    return `<div class="line"><span>${m.name}</span><span class="qty">
+      <button data-d="-1" data-id="${id}" aria-label="Remove one ${m.name}">−</button>${q}
+      <button data-d="1" data-id="${id}" aria-label="Add one ${m.name}">+</button></span>
+      <span>${money(m.price*q)}</span></div>`;}).join(""):`<p class="empty">Your order is empty. Add something from the menu.</p>`;
+  const sub=ids.reduce((s,id)=>s+MENU.find(x=>x.id==id).price*cart[id],0);
+  const fee=ids.length&&mode==="delivery"?DELIVERY:0;
+  const tax=sub*TAX,total=sub+tax+fee;
+  const count=ids.reduce((s,id)=>s+cart[id],0);
+  $("#sum").innerHTML=ids.length?`<div><span>Subtotal</span><span>${money(sub)}</span></div>
+    <div><span>Tax (8%)</span><span>${money(tax)}</span></div>
+    ${fee?`<div><span>Delivery</span><span>${money(fee)}</span></div>`:""}
+    <div class="total"><span>Total</span><span>${money(total)}</span></div>`:"";
+  $("#place").disabled=!ids.length;
+  $("#mcount").textContent=count+(count===1?" item":" items");
+  $("#mtotal").textContent=money(total);
+}
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button");if(!t)return;
+  if(t.dataset.c){cat=t.dataset.c;renderTabs();renderItems();}
+  else if(t.classList.contains("add")){cart[t.dataset.id]=(cart[t.dataset.id]||0)+1;$("#msg").innerHTML="";renderCart();}
+  else if(t.dataset.d){const id=t.dataset.id;cart[id]+=+t.dataset.d;if(cart[id]<=0)delete cart[id];renderCart();}
+  else if(t.dataset.m){mode=t.dataset.m;document.querySelectorAll("#mode button").forEach(b=>b.setAttribute("aria-pressed",b===t));renderCart();}
+  else if(t.id==="place"){
+    $("#msg").innerHTML=`<div class="done" role="status">Order received. ${mode==="pickup"?"Ready in about 15 minutes.":"Arriving in about 35 minutes."}</div>`;
+    cart={};renderCart();
+  }
+});
+renderTabs();renderItems();renderCart();
+</script>
+</body>
+</html>
